@@ -1,0 +1,5 @@
+0.1.0 (2018-05-31)
+    * Initial JSON Simple Config module
+        - Parsing JSC file
+        - Converter from JSON to JSC
+        - Converter from JSC to JSON
