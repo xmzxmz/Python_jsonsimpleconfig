@@ -3,10 +3,8 @@
 # *   Copyright (C) 2018 by xmz                                           *
 # * ********************************************************************* *
 
-'''
-@author: Marcin Zelek (marcin.zelek@gmail.com)
-         Copyright (C) xmz. All Rights Reserved.
-'''
+__author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
+__copyright__ = "Copyright (C) xmz. All Rights Reserved."
 
 ################################################################################
 # Import(s)                                                                    #
@@ -16,13 +14,37 @@ import datetime
 
 
 ################################################################################
-# Module                                                                       #
+# Class                                                                        #
 ################################################################################
 
 class JscCommon:
+    """
+    The class for all misc tools.
+    """
 
     @staticmethod
-    def getTimestemp(time=True, seconds=False, microseconds=False, utc=False):
+    def getTimestamp(time=True, seconds=False, microseconds=False, utc=False):
+        """
+        Get timestamp with predefined format.
+
+        Parameters
+        ----------
+        time : bool
+            Show time with date
+        seconds : bool
+            Show seconds
+        microseconds : bool
+            Show microseconds
+        utc : bool
+            Use UTC format
+
+        Returns
+        -------
+        string
+            Timestamp with required format.
+
+        """
+
         if utc:
             todaydate = datetime.datetime.utcnow()
         else:

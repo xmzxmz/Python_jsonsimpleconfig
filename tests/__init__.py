@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 # * ********************************************************************* *
-# *   Copyright (C) 2018 by xmz                                           *
+# *   Copyright (C) 2020 by xmz                                           *
 # * ********************************************************************* *
+
+"""
+JSON Simple Config Tests
+"""
 
 __author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
 __copyright__ = "Copyright (C) xmz. All Rights Reserved."
@@ -10,14 +14,15 @@ __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 # Import(s)                                                                    #
 ################################################################################
 
-from .JscComments import JscComments
-from .JscCommon import JscCommon
+from .jsc_comments_test import JscCommentsTestSuite
+from .parse_string_jsc_test import StringJscTestSuite
 
 ################################################################################
 # Module                                                                       #
 ################################################################################
 
-all__ = ('JscCommon', 'JscComments')
+__all__ = ('StringJscTestSuite',
+           'JscCommentsTestSuite')
 
 ################################################################################
 #                                End of file                                   #

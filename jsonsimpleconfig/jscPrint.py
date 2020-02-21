@@ -7,22 +7,19 @@ exec python3 $0 ${1+"$@"}
 # *   Copyright (C) 2018 by xmz                                           *
 # * ********************************************************************* *
 
-'''
-Return JSON Simple Config print config file
-
-@author: Marcin Zelek (marcin.zelek@gmail.com)
-         Copyright (C) xmz. All Rights Reserved.
-'''
+__doc__ = "Return JSON Simple Config print config file"
+__author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
+__copyright__ = "Copyright (C) xmz. All Rights Reserved."
 
 ################################################################################
 # Import(s)                                                                    #
 ################################################################################
 
-import sys
-import signal
 import argparse
-import logging
 import json
+import logging
+import signal
+import sys
 
 from jsonsimpleconfig import Jsc, JsonExtractor
 
@@ -45,19 +42,21 @@ def parameters():
     parser.add_argument('-f', '--format', choices={'TEXT', 'HTML', 'JSON'}, help='The output format', required=False)
     loggingLeveChoices = {
         'CRITICAL': logging.CRITICAL,
-        'ERROR':    logging.ERROR,
-        'WARNING':  logging.WARNING,
-        'INFO':     logging.INFO,
-        'DEBUG':    logging.DEBUG
+        'ERROR': logging.ERROR,
+        'WARNING': logging.WARNING,
+        'INFO': logging.INFO,
+        'DEBUG': logging.DEBUG
     }
-    parser.add_argument('-ll', '--logging_level', dest="loggingLevel", choices=loggingLeveChoices.keys(), help='Output log level', required=False)
+    parser.add_argument('-ll', '--logging_level', dest="loggingLevel", choices=loggingLeveChoices.keys(),
+                        help='Output log level', required=False)
     args, leftovers = parser.parse_known_args()
 
     if vars(args)['loggingLevel'] is None:
         level = logging.CRITICAL
     else:
         level = loggingLeveChoices.get(vars(args)['loggingLevel'], logging.CRITICAL)
-    logging.basicConfig(format='[%(asctime)s][%(levelname)-8s] [%(module)-20s] - %(message)s', datefmt='%Y.%m.%d %H:%M.%S', level=level)
+    logging.basicConfig(format='[%(asctime)s][%(levelname)-8s] [%(module)-20s] - %(message)s',
+                        datefmt='%Y.%m.%d %H:%M.%S', level=level)
 
     return {'jscFile': (vars(args)['in']).name, 'format': (vars(args)['format'])}
 

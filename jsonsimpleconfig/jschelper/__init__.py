@@ -3,10 +3,8 @@
 # *   Copyright (C) 2018 by xmz                                           *
 # * ********************************************************************* *
 
-'''
-@author: Marcin Zelek (marcin.zelek@gmail.com)
-         Copyright (C) xmz. All Rights Reserved.
-'''
+__author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
+__copyright__ = "Copyright (C) xmz. All Rights Reserved."
 
 ################################################################################
 # Import(s)                                                                    #
@@ -15,12 +13,13 @@
 from .Jsc import Jsc
 from .Json2JscHelper import Json2JscHelper
 from .Jsc2JsonHelper import Jsc2JsonHelper
+from .JscConfig import JscConfig
 
 ################################################################################
 # Module                                                                       #
 ################################################################################
 
-all__ = ('Json2JscHelper', 'Jsc2JsonHelper', 'Jsc')
+all__ = ('Json2JscHelper', 'Jsc2JsonHelper', 'Jsc', 'JscConfig')
 
 ################################################################################
 #                                End of file                                   #

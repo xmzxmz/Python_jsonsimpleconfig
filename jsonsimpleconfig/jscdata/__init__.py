@@ -3,17 +3,15 @@
 # *   Copyright (C) 2018 by xmz                                           *
 # * ********************************************************************* *
 
-'''
-@author: Marcin Zelek (marcin.zelek@gmail.com)
-         Copyright (C) xmz. All Rights Reserved.
-'''
+__author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
+__copyright__ = "Copyright (C) xmz. All Rights Reserved."
 
 ################################################################################
 # Import(s)                                                                    #
 ################################################################################
 
-from .JscSection import JscSection
 from .JscData import JscData
+from .JscSection import JscSection
 
 ################################################################################
 # Module                                                                       #

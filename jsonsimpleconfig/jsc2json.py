@@ -7,21 +7,18 @@ exec python3 $0 ${1+"$@"}
 # *   Copyright (C) 2018 by xmz                                           *
 # * ********************************************************************* *
 
-'''
-Convert JSON Simple Config file to JSON
-
-@author: Marcin Zelek (marcin.zelek@gmail.com)
-         Copyright (C) xmz. All Rights Reserved.
-'''
+__doc__ = "Convert JSON Simple Config file to JSON"
+__author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
+__copyright__ = "Copyright (C) xmz. All Rights Reserved."
 
 ################################################################################
 # Import(s)                                                                    #
 ################################################################################
 
-import sys
-import signal
 import argparse
 import logging
+import signal
+import sys
 
 from jsonsimpleconfig import Jsc2JsonHelper
 
@@ -44,19 +41,21 @@ def parameters():
     parser.add_argument('-o', '--out', type=argparse.FileType('w'), help='Output file path (JSON file)', required=False)
     loggingLeveChoices = {
         'CRITICAL': logging.CRITICAL,
-        'ERROR':    logging.ERROR,
-        'WARNING':  logging.WARNING,
-        'INFO':     logging.INFO,
-        'DEBUG':    logging.DEBUG
+        'ERROR': logging.ERROR,
+        'WARNING': logging.WARNING,
+        'INFO': logging.INFO,
+        'DEBUG': logging.DEBUG
     }
-    parser.add_argument('-ll', '--logging_level', dest="loggingLevel", choices=loggingLeveChoices.keys(), help='Output log level', required=False)
+    parser.add_argument('-ll', '--logging_level', dest="loggingLevel", choices=loggingLeveChoices.keys(),
+                        help='Output log level', required=False)
     args, leftovers = parser.parse_known_args()
 
     if vars(args)['loggingLevel'] is None:
         level = logging.CRITICAL
     else:
         level = loggingLeveChoices.get(vars(args)['loggingLevel'], logging.CRITICAL)
-    logging.basicConfig(format='[%(asctime)s][%(levelname)-8s] [%(module)-20s] - %(message)s', datefmt='%Y.%m.%d %H:%M.%S', level=level)
+    logging.basicConfig(format='[%(asctime)s][%(levelname)-8s] [%(module)-20s] - %(message)s',
+                        datefmt='%Y.%m.%d %H:%M.%S', level=level)
 
     jscFile = (vars(args)['in']).name
 
@@ -79,6 +78,7 @@ def main(argv=sys.argv):
             Jsc2JsonHelper.convert(args['jscFile'], args['jsonFile'])
         except:
             print('Error!')
+
 
 def handler(signum, frame):
     sys.exit()

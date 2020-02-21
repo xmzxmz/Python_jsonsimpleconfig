@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 # * ********************************************************************* *
-# *   Copyright (C) 2018 by xmz                                           *
+# *   Copyright (C) 2020 by xmz                                           *
 # * ********************************************************************* *
 
-'''
-JSON Simple Config Setup
-
-@author: Marcin Zelek (marcin.zelek@gmail.com)
-         Copyright (C) xmz. All Rights Reserved.
-'''
+__doc__ = "JSON Simple Config Setup"
+__author__ = "Marcin Zelek"
+__email__ = "marcin.zelek@gmail.com"
+__copyright__ = "Copyright (C) xmz. All Rights Reserved."
+__license__ = "MIT"
+__version__ = "0.2"
 
 ################################################################################
 # Import(s)                                                                    #
@@ -36,14 +36,14 @@ except IOError:
 
 setup(
     name='jsonsimpleconfig',
-    version='0.1',
+    version=__version__,
     description=description,
     long_description=long_description,
     keywords="json configuration jsc simple config",
-    author='Marcin Zelek',
-    author_email='marcin.zelek@gmail.com',
-    license='MIT',
-    url='We do not have URL yet',
+    author=__author__,
+    author_email=__email__,
+    license=__license__,
+    url='https://github.com/xmzxmz/jsonsimpleconfig',
     package_data={'': ['jscresources/*.template']},
     include_package_data=True,
     packages=['jsonsimpleconfig',
@@ -55,12 +55,12 @@ setup(
     entry_points=
     {
         'console_scripts':
-        [
-            'json2jsc = jsonsimpleconfig.json2jsc:main',
-            'jsc2json = jsonsimpleconfig.jsc2json:main',
-            'jscValue = jsonsimpleconfig.jscValue:main',
-            'jscPrint = jsonsimpleconfig.jscPrint:main',
-        ],
+            [
+                'json2jsc = jsonsimpleconfig.json2jsc:main',
+                'jsc2json = jsonsimpleconfig.jsc2json:main',
+                'jscValue = jsonsimpleconfig.jscValue:main',
+                'jscPrint = jsonsimpleconfig.jscPrint:main',
+            ],
     },
     zip_safe=False
 )

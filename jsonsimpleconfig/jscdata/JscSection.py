@@ -3,23 +3,19 @@
 # *   Copyright (C) 2018 by xmz                                           *
 # * ********************************************************************* *
 
-'''
-@author: Marcin Zelek (marcin.zelek@gmail.com)
-         Copyright (C) xmz. All Rights Reserved.
-'''
+__author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
+__copyright__ = "Copyright (C) xmz. All Rights Reserved."
 
 
 ################################################################################
-# Import(s)                                                                    #
-################################################################################
-
-
-################################################################################
-# Module                                                                       #
+# Class                                                                        #
 ################################################################################
 
 
 class JscSection:
+    """
+    The JSC section data container.
+    """
     SECTION_GLUE = "."
     GLOBAL_SECTION_NAME = "__GLOBAL__"
 
@@ -28,14 +24,25 @@ class JscSection:
         self.__section.append(name)
 
     def __append(self, name):
-        self.__section.append('"'+name+'"')
+        self.__section.append('"' + name + '"')
 
     def up(self, name):
+        """
+        Move level up for current section
+
+        Parameters
+        ----------
+        name : string
+            Section name
+        """
         if len(self.__section) == 1 and JscSection.GLOBAL_SECTION_NAME in self.__section:
             self.__section = list()
         self.__append(name)
 
     def down(self):
+        """
+        Move level down for current section
+        """
         if len(self.__section) == 1:
             self.__section = list()
             self.__section.append(JscSection.GLOBAL_SECTION_NAME)
@@ -43,6 +50,14 @@ class JscSection:
             del self.__section[-1]
 
     def str(self):
+        """
+        Get JSC data section as string
+
+        Returns
+        -------
+        string
+            JSC data section as string.
+        """
         if len(self.__section) == 1 and JscSection.GLOBAL_SECTION_NAME in self.__section:
             sectionName = None
         else:

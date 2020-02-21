@@ -1,14 +1,12 @@
-# -*- coding: utf-8 -*-
-# * ********************************************************************* *
-# *   Copyright (C) 2018 by xmz                                           *
-# * ********************************************************************* *
-
-'''
+"""
 JSON Simple Config
 
-@author: Marcin Zelek (marcin.zelek@gmail.com)
-         Copyright (C) xmz. All Rights Reserved.
-'''
+The simple idea to prepare and manage configuration for your application.
+"""
+
+# * ********************************************************************* *
+# *   Copyright (C) 2020 by xmz                                           *
+# * ********************************************************************* *
 
 ################################################################################
 # Import(s)                                                                    #
@@ -18,7 +16,7 @@ from .jsccommon import JscComments, JscCommon
 from .jscdata import JscData, JscSection
 from .jscparser import Json, JscParser
 from .jscextractor import JscExtractor, JscHeader, JsonExtractor
-from .jschelper import Jsc, Json2JscHelper, Jsc2JsonHelper
+from .jschelper import Jsc, Json2JscHelper, Jsc2JsonHelper, JscConfig
 
 
 ################################################################################
@@ -44,7 +42,8 @@ __all__ = ('JscCommon',
            'JscExtractor',
            'JsonExtractor',
            'JscHeader',
-           'Jsc')
+           'Jsc',
+           'JscConfig')
 
 ################################################################################
 #                                End of file                                   #
