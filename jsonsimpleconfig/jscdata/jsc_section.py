@@ -7,9 +7,9 @@ __author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
 __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 
 
-################################################################################
-# Class                                                                        #
-################################################################################
+###############################################################################
+# Class                                                                       #
+###############################################################################
 
 
 class JscSection:
@@ -26,7 +26,7 @@ class JscSection:
     def __append(self, name):
         self.__section.append('"' + name + '"')
 
-    def up(self, name):
+    def go_up(self, name):
         """
         Move level up for current section
 
@@ -39,7 +39,7 @@ class JscSection:
             self.__section = list()
         self.__append(name)
 
-    def down(self):
+    def go_down(self):
         """
         Move level down for current section
         """
@@ -59,11 +59,11 @@ class JscSection:
             JSC data section as string.
         """
         if len(self.__section) == 1 and JscSection.GLOBAL_SECTION_NAME in self.__section:
-            sectionName = None
+            section_name = None
         else:
-            sectionName = JscSection.SECTION_GLUE.join(self.__section)
-        return sectionName
+            section_name = JscSection.SECTION_GLUE.join(self.__section)
+        return section_name
 
-################################################################################
-#                                End of file                                   #
-################################################################################
+###############################################################################
+#                                End of file                                  #
+###############################################################################

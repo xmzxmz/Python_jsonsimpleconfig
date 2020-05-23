@@ -7,7 +7,7 @@ exec python3 $0 ${1+"$@"}
 # *   Copyright (C) 2018 by xmz                                           *
 # * ********************************************************************* *
 
-__doc__ = "Convert JSON Simple Config file to JSON"
+__doc__ = "Return JSON Simple Config print config file"
 __author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
 __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 
@@ -16,18 +16,19 @@ __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 ###############################################################################
 
 import argparse
+import json
 import logging
 import signal
 import sys
 
-from jsonsimpleconfig import Jsc2JsonHelper
+from jsonsimpleconfig import Jsc, JsonExtractor
 
 ###############################################################################
 # Module Variable(s)                                                          #
 ###############################################################################
 
 VERSION_STRING = "0.0.1"
-APPLICATION_NAME_STRING = "JSC converter to JSON"
+APPLICATION_NAME_STRING = "JSC print"
 
 
 ###############################################################################
@@ -42,7 +43,7 @@ def parameters():
     parser = argparse.ArgumentParser(description=APPLICATION_NAME_STRING)
     parser.add_argument('-v', '--version', action='version', version=APPLICATION_NAME_STRING + " - " + VERSION_STRING)
     parser.add_argument('-i', '--in', type=argparse.FileType('r'), help='Input file path (JSC file)', required=True)
-    parser.add_argument('-o', '--out', type=argparse.FileType('w'), help='Output file path (JSON file)', required=False)
+    parser.add_argument('-f', '--format', choices={'TEXT', 'HTML', 'JSON'}, help='The output format', required=False)
     logging_level_choices = {
         'CRITICAL': logging.CRITICAL,
         'ERROR': logging.ERROR,
@@ -61,14 +62,7 @@ def parameters():
     logging.basicConfig(format='[%(asctime)s][%(levelname)-8s] [%(module)-20s] - %(message)s',
                         datefmt='%Y.%m.%d %H:%M.%S', level=level)
 
-    jsc_file = (vars(args)['in']).name
-
-    if vars(args)['out'] is None:
-        json_file = jsc_file + ".json"
-    else:
-        json_file = (vars(args)['out']).name
-
-    return {'loggingLevel': (vars(args)['loggingLevel']), 'json_file': json_file, 'jsc_file': jsc_file}
+    return {'jsc_file': (vars(args)['in']).name, 'format': (vars(args)['format'])}
 
 
 def main(argv=sys.argv):
@@ -78,15 +72,23 @@ def main(argv=sys.argv):
     """
     signal.signal(signal.SIGINT, handler)
     args = parameters()
-
-    if 'loggingLevel' in args and args['loggingLevel'] == 'DEBUG':
-        Jsc2JsonHelper.convert(args['jsc_file'], args['json_file'])
-    else:
-        try:
-            Jsc2JsonHelper.convert(args['jsc_file'], args['json_file'])
-        except Exception as exception:
-            print('Error!')
-            logging.debug(exception)
+    jsc_data = Jsc.get(args['jsc_file'])
+    if jsc_data is not None:
+        if args['format'] is not None and "HTML".lower() == args['format'].lower():
+            jsc_data.print_html()
+        elif args['format'] is not None and "JSON".lower() == args['format'].lower():
+            json_extractor = JsonExtractor(jsc_data)
+            if json_extractor is not None:
+                json_extractor.extract_data_to_json()
+                try:
+                    json_string = json.dumps(json_extractor.get_json(), ensure_ascii=False)
+                except json.JSONDecodeError as error:
+                    json_string = None
+                    logging.debug(error)
+                if json_string is not None:
+                    print(json_string)
+        else:
+            jsc_data.print()
 
 
 def handler(signum, frame):

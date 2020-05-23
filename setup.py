@@ -2,43 +2,45 @@
 # * ********************************************************************* *
 # *   Copyright (C) 2020 by xmz                                           *
 # * ********************************************************************* *
-
-__doc__ = "JSON Simple Config Setup"
+"""
+JSON Simple Config Setup
+"""
 __author__ = "Marcin Zelek"
 __email__ = "marcin.zelek@gmail.com"
 __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 __license__ = "MIT"
-__version__ = "0.2"
+__version__ = "0.3"
 
-################################################################################
-# Import(s)                                                                    #
-################################################################################
+###############################################################################
+# Import(s)                                                                   #
+###############################################################################
 
 import os
 
 from setuptools import setup
 
-################################################################################
-# Module                                                                       #
-################################################################################
+###############################################################################
+# Module                                                                      #
+###############################################################################
 
-description = 'The simple idea to prepare configuration for your application.'
+DESCRIPTION = 'The simple idea to prepare configuration for your application.'
 
 
 def read(fname):
+    """test"""
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
 try:
-    long_description = read('README.rst')
+    LONG_DESCRIPTION = read('README.rst')
 except IOError:
-    long_description = description
+    LONG_DESCRIPTION = DESCRIPTION
 
 setup(
     name='jsonsimpleconfig',
     version=__version__,
-    description=description,
-    long_description=long_description,
+    description=DESCRIPTION,
+    long_description=LONG_DESCRIPTION,
     keywords="json configuration jsc simple config",
     author=__author__,
     author_email=__email__,
@@ -52,19 +54,18 @@ setup(
               'jsonsimpleconfig.jscextractor',
               'jsonsimpleconfig.jschelper',
               'jsonsimpleconfig.jscparser'],
-    entry_points=
-    {
+    entry_points={
         'console_scripts':
             [
                 'json2jsc = jsonsimpleconfig.json2jsc:main',
                 'jsc2json = jsonsimpleconfig.jsc2json:main',
-                'jscValue = jsonsimpleconfig.jscValue:main',
-                'jscPrint = jsonsimpleconfig.jscPrint:main',
+                'jsc_value = jsonsimpleconfig.jsc_value:main',
+                'jsc_print = jsonsimpleconfig.jsc_print:main',
             ],
     },
     zip_safe=False
 )
 
-################################################################################
-#                                End of file                                   #
-################################################################################
+###############################################################################
+#                                End of file                                  #
+###############################################################################

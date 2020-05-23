@@ -11,9 +11,9 @@ __doc__ = "Convert JSON to JSON Simple Config file"
 __author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
 __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 
-################################################################################
-# Import(s)                                                                    #
-################################################################################
+###############################################################################
+# Import(s)                                                                   #
+###############################################################################
 
 import argparse
 import logging
@@ -22,65 +22,79 @@ import sys
 
 from jsonsimpleconfig import Json2JscHelper
 
-################################################################################
-# Module Variable(s)                                                           #
-################################################################################
+###############################################################################
+# Module Variable(s)                                                          #
+###############################################################################
 
-versionString = "0.0.1"
-applicationNameString = "JSON to JSC converter"
+VERSION_STRING = "0.0.1"
+APPLICATION_NAME_STRING = "JSON to JSC converter"
 
 
-################################################################################
-# Module                                                                       #
-################################################################################
+###############################################################################
+# Module                                                                      #
+###############################################################################
 
 def parameters():
-    parser = argparse.ArgumentParser(description=applicationNameString)
-    parser.add_argument('-v', '--version', action='version', version=applicationNameString + " - " + versionString)
+    """
+    parameters
+    :return:
+    """
+    parser = argparse.ArgumentParser(description=APPLICATION_NAME_STRING)
+    parser.add_argument('-v', '--version', action='version', version=APPLICATION_NAME_STRING + " - " + VERSION_STRING)
     parser.add_argument('-i', '--in', type=argparse.FileType('r'), help='Input file path (JSON file)', required=True)
     parser.add_argument('-o', '--out', type=argparse.FileType('w'), help='Output file path (JSC file)', required=False)
-    loggingLeveChoices = {
+    logging_level_choices = {
         'CRITICAL': logging.CRITICAL,
         'ERROR': logging.ERROR,
         'WARNING': logging.WARNING,
         'INFO': logging.INFO,
         'DEBUG': logging.DEBUG
     }
-    parser.add_argument('-ll', '--logging_level', dest="loggingLevel", choices=loggingLeveChoices.keys(),
+    parser.add_argument('-ll', '--logging_level', dest="loggingLevel", choices=logging_level_choices.keys(),
                         help='Output log level', required=False)
-    args, leftovers = parser.parse_known_args()
+    args, _ = parser.parse_known_args()
 
     if vars(args)['loggingLevel'] is None:
         level = logging.CRITICAL
     else:
-        level = loggingLeveChoices.get(vars(args)['loggingLevel'], logging.CRITICAL)
+        level = logging_level_choices.get(vars(args)['loggingLevel'], logging.CRITICAL)
     logging.basicConfig(format='[%(asctime)s][%(levelname)-8s] [%(module)-20s] - %(message)s',
                         datefmt='%Y.%m.%d %H:%M.%S', level=level)
 
-    jsonFile = (vars(args)['in']).name
+    json_file = (vars(args)['in']).name
 
     if vars(args)['out'] is None:
-        jscFile = jsonFile + ".jsc"
+        jsc_file = json_file + ".jsc"
     else:
-        jscFile = (vars(args)['out']).name
+        jsc_file = (vars(args)['out']).name
 
-    return {'loggingLevel': (vars(args)['loggingLevel']), 'jsonFile': jsonFile, 'jscFile': jscFile}
+    return {'loggingLevel': (vars(args)['loggingLevel']), 'json_file': json_file, 'jsc_file': jsc_file}
 
 
 def main(argv=sys.argv):
+    """
+    main
+    :param argv:
+    """
     signal.signal(signal.SIGINT, handler)
     args = parameters()
 
     if 'loggingLevel' in args and args['loggingLevel'] == 'DEBUG':
-        Json2JscHelper.convert(args['jsonFile'], args['jscFile'])
+        Json2JscHelper.convert(args['json_file'], args['jsc_file'])
     else:
         try:
-            Json2JscHelper.convert(args['jsonFile'], args['jscFile'])
-        except:
+            Json2JscHelper.convert(args['json_file'], args['jsc_file'])
+        except Exception as exception:
             print('Error!')
+            logging.debug(exception)
 
 
 def handler(signum, frame):
+    """
+    handler
+    :param signum:
+    :param frame:
+    """
     sys.exit()
 
 
@@ -89,6 +103,6 @@ if __name__ == '__main__':
     main()
     sys.exit()
 
-################################################################################
-#                                End of file                                   #
-################################################################################
+###############################################################################
+#                                End of file                                  #
+###############################################################################

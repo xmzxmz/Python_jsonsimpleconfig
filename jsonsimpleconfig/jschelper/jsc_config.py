@@ -10,16 +10,16 @@ JSC Config class - JSC Config singleton to keep current configuration data
 __author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
 __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 
-################################################################################
-# Import(s)                                                                    #
-################################################################################
+###############################################################################
+# Import(s)                                                                   #
+###############################################################################
 
 from jsonsimpleconfig import JscParser, JscData
 
 
-################################################################################
-# Class                                                                        #
-################################################################################
+###############################################################################
+# Class                                                                       #
+###############################################################################
 
 class JscConfig:
     """JSC Config class."""
@@ -76,7 +76,7 @@ class JscConfig:
             JSC file path
         """
         jsc_parser = JscParser()
-        self.merge_jsc(jsc_parser.parseFile(jsc_file))
+        self.merge_jsc(jsc_parser.parse_file(jsc_file))
 
     def merge_jsc(self, jsc_data):
         """
@@ -113,7 +113,7 @@ class JscConfig:
             The value of the section key.
         """
         if self.__jsc_data is not None and isinstance(self.__jsc_data, JscData):
-            return self.__jsc_data.getValue(section_name, key, default)
+            return self.__jsc_data.get_value(section_name, key, default)
 
         return None
 
@@ -134,12 +134,12 @@ class JscConfig:
             The section branch structure.
         """
         if self.__jsc_data is not None and isinstance(self.__jsc_data, JscData):
-            data = self.__jsc_data.getSection(section_name)
+            data = self.__jsc_data.get_section(section_name)
             if data is None:
                 data = default
             return data
         return None
 
-################################################################################
-#                                End of file                                   #
-################################################################################
+###############################################################################
+#                                End of file                                  #
+###############################################################################

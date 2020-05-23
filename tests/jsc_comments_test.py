@@ -10,21 +10,22 @@ JSON Simple Config Tests - Comments
 __author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
 __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 
-################################################################################
-# Import(s)                                                                    #
-################################################################################
+###############################################################################
+# Import(s)                                                                   #
+###############################################################################
 
+import datetime
 import os
 import shutil
-import datetime
-import unittest
 import tempfile
+import unittest
+
 import jsonsimpleconfig
 
 
-################################################################################
-# Class                                                                        #
-################################################################################
+###############################################################################
+# Class                                                                       #
+###############################################################################
 
 class JscCommentsTestSuite(unittest.TestCase):
     """Comments for JSC test cases."""
@@ -46,24 +47,23 @@ class JscCommentsTestSuite(unittest.TestCase):
         self.assertIsNone(jsonsimpleconfig.loads("// " + JscCommentsTestSuite.__example_jsc))
         self.assertIsNone(jsonsimpleconfig.loads("; " + JscCommentsTestSuite.__example_jsc))
         self.assertEqual('',
-                         jsonsimpleconfig.JscComments.stripComments(
+                         jsonsimpleconfig.JscComments.strip_comments(
                              "# " + JscCommentsTestSuite.__example_jsc))
         self.assertEqual('',
-                         jsonsimpleconfig.JscComments.stripComments(
+                         jsonsimpleconfig.JscComments.strip_comments(
                              "// " + JscCommentsTestSuite.__example_jsc))
         self.assertEqual('',
-                         jsonsimpleconfig.JscComments.stripComments(
+                         jsonsimpleconfig.JscComments.strip_comments(
                              "; " + JscCommentsTestSuite.__example_jsc))
 
     def test_remove_multi_line_comments(self):
         """Remove multi line comment."""
-        self.assertIsNone(jsonsimpleconfig.loads("/* " +
-                                                 JscCommentsTestSuite.__example_jsc + " */"))
-        self.assertIsNone(jsonsimpleconfig.loads("/* \n" +
-                                                 JscCommentsTestSuite.__example_jsc + "\n */"))
-        self.assertIsInstance(jsonsimpleconfig.loads("// \n" +
-                                                     JscCommentsTestSuite.__example_jsc + "\n //"),
-                              jsonsimpleconfig.JscData)
+        self.assertIsNone(jsonsimpleconfig.loads(
+            "/* " + JscCommentsTestSuite.__example_jsc + " */"))
+        self.assertIsNone(jsonsimpleconfig.loads(
+            "/* \n" + JscCommentsTestSuite.__example_jsc + "\n */"))
+        self.assertIsInstance(jsonsimpleconfig.loads(
+            "// \n" + JscCommentsTestSuite.__example_jsc + "\n //"), jsonsimpleconfig.JscData)
 
     def test_one_line_comment_file(self):
         """Remove one line comment from file."""
@@ -72,23 +72,21 @@ class JscCommentsTestSuite(unittest.TestCase):
         self.assertIsNone(self.__execute_test_on_file("; " + JscCommentsTestSuite.__example_jsc))
 
         self.assertIsInstance(
-            self.__execute_test_on_file("# " +
-                                        JscCommentsTestSuite.__example_jsc +
-                                        os.linesep +
-                                        JscCommentsTestSuite.__example_jsc),
+            self.__execute_test_on_file(
+                "# " + JscCommentsTestSuite.__example_jsc + os.linesep + JscCommentsTestSuite.__example_jsc),
             jsonsimpleconfig.JscData)
 
     def test_multi_line_comments_file(self):
         """Remove multi line comment from file."""
         self.assertIsNone(
-            self.__execute_test_on_file("/* " +
-                                        JscCommentsTestSuite.__example_jsc + " */"))
+            self.__execute_test_on_file(
+                "/* " + JscCommentsTestSuite.__example_jsc + " */"))
         self.assertIsNone(
-            self.__execute_test_on_file("/* \n" +
-                                        JscCommentsTestSuite.__example_jsc + "\n */"))
+            self.__execute_test_on_file(
+                "/* \n" + JscCommentsTestSuite.__example_jsc + "\n */"))
         self.assertIsInstance(
-            self.__execute_test_on_file("// \n" +
-                                        JscCommentsTestSuite.__example_jsc + "\n //"),
+            self.__execute_test_on_file(
+                "// \n" + JscCommentsTestSuite.__example_jsc + "\n //"),
             jsonsimpleconfig.JscData)
 
     def __execute_test_on_file(self, jsc_file_body):
@@ -110,6 +108,6 @@ class JscCommentsTestSuite(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
-################################################################################
-#                                End of file                                   #
-################################################################################
+###############################################################################
+#                                End of file                                  #
+###############################################################################

@@ -6,21 +6,28 @@
 __author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
 __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 
-################################################################################
-# Import(s)                                                                    #
-################################################################################
+###############################################################################
+# Import(s)                                                                   #
+###############################################################################
 
-from .Jsc import Jsc
-from .Json2JscHelper import Json2JscHelper
-from .Jsc2JsonHelper import Jsc2JsonHelper
-from .JscConfig import JscConfig
+from .jsc import Jsc
+from .jsc2json_helper import Jsc2JsonHelper
+from .jsc_config import JscConfig
+from .jsc_managed_config import JscConfigManaged
+from .json2jsc_helper import Json2JscHelper
 
-################################################################################
-# Module                                                                       #
-################################################################################
+###############################################################################
+# Module                                                                      #
+###############################################################################
 
-all__ = ('Json2JscHelper', 'Jsc2JsonHelper', 'Jsc', 'JscConfig')
+__all__ = (
+    'Json2JscHelper',
+    'Jsc2JsonHelper',
+    'Jsc',
+    'JscConfig',
+    'JscConfigManaged',
+)
 
-################################################################################
-#                                End of file                                   #
-################################################################################
+###############################################################################
+#                                End of file                                  #
+###############################################################################

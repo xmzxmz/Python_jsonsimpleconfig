@@ -10,9 +10,9 @@ JSON Simple Config Tests - JSC Config file
 __author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
 __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 
-################################################################################
-# Import(s)                                                                    #
-################################################################################
+###############################################################################
+# Import(s)                                                                   #
+###############################################################################
 
 import os
 import shutil
@@ -22,9 +22,9 @@ import unittest
 import jsonsimpleconfig
 
 
-################################################################################
-# Class                                                                        #
-################################################################################
+###############################################################################
+# Class                                                                       #
+###############################################################################
 
 class JscConfigTest(jsonsimpleconfig.JscConfig):
     """JSC test config file."""
@@ -45,8 +45,7 @@ class JscConfigTestSuite(unittest.TestCase):
     def setUp(self):
         """Create a temporary directory"""
         self.config_test_dir = JscConfigTest.config_test_dir
-        if not (os.path.isdir(self.config_test_dir) and
-                os.access(self.config_test_dir, os.W_OK)):
+        if not (os.path.isdir(self.config_test_dir) and os.access(self.config_test_dir, os.W_OK)):
             os.mkdir(self.config_test_dir, 0o700)
 
     def tearDown(self):
@@ -140,6 +139,6 @@ class JscConfigTestSuite(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
-################################################################################
-#                                End of file                                   #
-################################################################################
+###############################################################################
+#                                End of file                                  #
+###############################################################################

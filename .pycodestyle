@@ -1,0 +1,7 @@
+[pycodestyle]
+count = True
+;ignore = F401
+show-source = True
+show-pep8 = True
+max-line-length = 120
+statistics = True
