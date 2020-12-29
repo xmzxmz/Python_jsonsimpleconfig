@@ -10,8 +10,9 @@ target: help;
 # Bundles
 ###############################################################################
 
-lint: pylint pep8 flake8
-test: unittest pytest tox
+lint: pylint pycodestyle flake8
+test: unittest pytest
+test-tox: unittest pytest tox
 clean: clean-pyc clean-build clean-cache clean-docs clean-tox
 doc: doc-jsc doc-tests
 
@@ -27,8 +28,8 @@ help:
 	@echo "        Run all linters."
 	@echo "    pylint"
 	@echo "        Run pylint."
-	@echo "    pep8"
-	@echo "        Run pep8."
+	@echo "    pycodestyle"
+	@echo "        Run pycodestyle."
 	@echo "    flake8"
 	@echo "        Run flake8."
 	@echo "-------------------------------------------------------------------"
@@ -76,14 +77,14 @@ pylint:
 	@eval pylint -s y --rcfile=.pylintrc tests
 
 ###############################################################################
-# PEP8
+# Py Code Style
 ###############################################################################
-pep8:
-	@echo "Run PEP8 ..."
-	@eval pep8 --config=.pycodestyle setup.py
-	@eval pep8 --config=.pycodestyle jsonsimpleconfig
-	@eval pep8 --config=.pycodestyle tests
-	@eval pep8 --config=.pycodestyle .
+pycodestyle:
+	@echo "Run PyCodeStyle ..."
+	@eval pycodestyle --config=.pycodestyle setup.py
+	@eval pycodestyle --config=.pycodestyle jsonsimpleconfig
+	@eval pycodestyle --config=.pycodestyle tests
+	@eval pycodestyle --config=.pycodestyle .
 
 ###############################################################################
 # Flake8

@@ -1,0 +1,38 @@
+name: Test JSC
+
+on: [push, pull_request]
+
+defaults:
+  run:
+    working-directory: ./
+
+jobs:
+  test-jsc-job:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Install Makefile support
+        run: sudo apt-get install build-essential
+      - name: Run Lint
+        run: make lint
+      - name: Run clean
+        run: make clean
+      - name: Run test
+        run: make test
+      - name: Run clean
+        run: make clean
+      - name: Run tox
+        run: make tox
