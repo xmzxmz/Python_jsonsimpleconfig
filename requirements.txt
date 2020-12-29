@@ -1,5 +1,7 @@
 argparse
 flake8
+pycodestyle
+pylint
 pytest
 pytest-cov
 tox

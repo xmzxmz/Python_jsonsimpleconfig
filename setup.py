@@ -9,7 +9,7 @@ __author__ = "Marcin Zelek"
 __email__ = "marcin.zelek@gmail.com"
 __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 __license__ = "MIT"
-__version__ = "0.3"
+__version__ = "0.4"
 
 ###############################################################################
 # Import(s)                                                                   #
@@ -61,6 +61,8 @@ setup(
                 'jsc2json = jsonsimpleconfig.jsc2json:main',
                 'jsc_value = jsonsimpleconfig.jsc_value:main',
                 'jsc_print = jsonsimpleconfig.jsc_print:main',
+                'jscValue = jsonsimpleconfig.jsc_value:main',
+                'jscPrint = jsonsimpleconfig.jsc_print:main',
             ],
     },
     zip_safe=False

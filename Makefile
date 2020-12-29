@@ -10,10 +10,12 @@ target: help;
 # Bundles
 ###############################################################################
 
-lint: pylint pep8 flake8
-test: unittest pytest tox
+lint: pylint pycodestyle flake8
+test: unittest pytest
+test-tox: unittest pytest tox
 clean: clean-pyc clean-build clean-cache clean-docs clean-tox
 doc: doc-jsc doc-tests
+ps: vc-pipeline-scan
 
 all: init lint test doc clean
 .PHONY : all
@@ -27,8 +29,8 @@ help:
 	@echo "        Run all linters."
 	@echo "    pylint"
 	@echo "        Run pylint."
-	@echo "    pep8"
-	@echo "        Run pep8."
+	@echo "    pycodestyle"
+	@echo "        Run pycodestyle."
 	@echo "    flake8"
 	@echo "        Run flake8."
 	@echo "-------------------------------------------------------------------"
@@ -76,14 +78,14 @@ pylint:
 	@eval pylint -s y --rcfile=.pylintrc tests
 
 ###############################################################################
-# PEP8
+# Py Code Style
 ###############################################################################
-pep8:
-	@echo "Run PEP8 ..."
-	@eval pep8 --config=.pycodestyle setup.py
-	@eval pep8 --config=.pycodestyle jsonsimpleconfig
-	@eval pep8 --config=.pycodestyle tests
-	@eval pep8 --config=.pycodestyle .
+pycodestyle:
+	@echo "Run PyCodeStyle ..."
+	@eval pycodestyle --config=.pycodestyle setup.py
+	@eval pycodestyle --config=.pycodestyle jsonsimpleconfig
+	@eval pycodestyle --config=.pycodestyle tests
+	@eval pycodestyle --config=.pycodestyle .
 
 ###############################################################################
 # Flake8
@@ -158,6 +160,36 @@ doc-jsc:
 doc-tests:
 	@echo "Run documentation tests..."
 	@eval pdoc3 --html --output-dir docs/tests --force tests
+
+###############################################################################
+# Pipeline scan (Veracode)
+###############################################################################
+vc-pipeline-scan:
+	@pwd
+	@$(eval SCAN_FOLDER=.pipeline-scan-workspace)
+	@echo "--------------------------"
+	@if [ -d ${SCAN_FOLDER} ]; then rm -rf ${SCAN_FOLDER}; fi
+	@mkdir -p ${SCAN_FOLDER}
+	@echo "====================="
+	@echo "Run Pipeline scan ..."
+	@echo "====================="
+	@echo "Prepare source package ..."
+	@echo "--------------------------"
+	tar czf "${SCAN_FOLDER}/jsc.tgz" jsonsimpleconfig
+	@cd ${SCAN_FOLDER} && pwd && ls -lah
+	@echo "Prepare pipelinescan ..."
+	@echo "------------------------"
+	wget https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip -P "${SCAN_FOLDER}"
+	@unzip -d "${SCAN_FOLDER}/pipeline-scan-LATEST" "${SCAN_FOLDER}/pipeline-scan-LATEST.zip"
+	@rm "${SCAN_FOLDER}/pipeline-scan-LATEST.zip"
+	@echo "Execute scan ..."
+	@echo "----------------"
+	@$(eval JAVA=java)
+	@$(eval JAVA_OPTIONS=)
+	@$(eval PIPELINE_SCAN='pipeline-scan-LATEST/pipeline-scan.jar')
+	@$(eval TEST_FILE=jsc.tgz)
+	@$(eval cmd="${JAVA} ${JAVA_OPTIONS} -jar ${PIPELINE_SCAN} -vid ${VERACODE_API_ID} -vkey ${VERACODE_API_KEY} -f ${TEST_FILE} -so true --issue_details true -p jsonsimpleconfig -ds Release")
+	@cd ${SCAN_FOLDER} && eval $(cmd)
 
 ###############################################################################
 #                                End of file                                  #
