@@ -14,6 +14,7 @@ import logging
 import os
 import os.path
 from string import Template
+from typing import Optional
 
 import jsonsimpleconfig
 
@@ -29,7 +30,7 @@ class JscHeader:
                                 'customHeaderFilePath': '/etc/jsonsimpleconfig/header.template'}):
         self.__options = options
 
-    def __header_template(self, file_path) -> Template:
+    def __header_template(self, file_path) -> Optional[str]:
         header = None
         try:
             if os.path.isfile(file_path):
@@ -42,7 +43,7 @@ class JscHeader:
             logging.debug(error)
         return header
 
-    def str(self) -> str:
+    def str(self) -> Optional[str]:
         header = file_path = None
 
         if self.__options.get('allowCustomHeader') and \

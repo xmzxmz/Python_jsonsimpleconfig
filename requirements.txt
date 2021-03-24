@@ -1,6 +1,7 @@
 argparse
 flake8
 pycodestyle
+mypy
 pylint
 pytest
 pytest-cov

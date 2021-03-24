@@ -11,6 +11,7 @@ __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 ###############################################################################
 
 import logging
+from typing import Union
 
 from jsonsimpleconfig import JscComments, JscData, JscSection
 
@@ -72,7 +73,7 @@ class JscParser:
                     self.__current_section_data += ','
                 self.__current_section_data += line
 
-    def parse_file(self, jsc_file_path, parse_line_by_line=False) -> JscData:
+    def parse_file(self, jsc_file_path, parse_line_by_line=False) -> Union[JscData, None]:
         """
         parse_file
         :param jsc_file_path:
@@ -101,7 +102,7 @@ class JscParser:
 
         return self.__jsc_data
 
-    def parse_string(self, jsc_string) -> JscData:
+    def parse_string(self, jsc_string) -> Union[JscData, None]:
         """
         parse_string
         :param jsc_string:

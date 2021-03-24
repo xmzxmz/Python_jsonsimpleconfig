@@ -10,7 +10,7 @@ target: help;
 # Bundles
 ###############################################################################
 
-lint: pylint pycodestyle flake8
+lint: pylint pycodestyle flake8 mypy
 test: unittest pytest
 test-tox: unittest pytest tox
 clean: clean-pyc clean-build clean-cache clean-docs clean-tox
@@ -103,6 +103,13 @@ flake8:
 	@eval flake8 --count --statistics --benchmark .
 
 ###############################################################################
+# MyPy
+###############################################################################
+mypy:
+	@echo "Run mypy ..."
+	@eval mypy jsonsimpleconfig
+
+###############################################################################
 # Tox
 ###############################################################################
 tox:
@@ -146,6 +153,7 @@ clean-tox:
 clean-cache:
 	rm --force --recursive .cache/
 	rm --force --recursive .pytest_cache/
+	rm --force --recursive .mypy_cache/
 
 clean-docs:
 	rm --force --recursive docs/tests/

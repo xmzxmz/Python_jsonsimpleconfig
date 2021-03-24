@@ -9,7 +9,7 @@ __author__ = "Marcin Zelek"
 __email__ = "marcin.zelek@gmail.com"
 __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 __license__ = "MIT"
-__version__ = "0.4"
+__version__ = "0.5"
 
 ###############################################################################
 # Import(s)                                                                   #

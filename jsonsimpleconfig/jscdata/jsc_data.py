@@ -14,6 +14,7 @@ import json
 import logging
 import os
 import sys
+from typing import Optional
 
 from .jsc_section import JscSection
 
@@ -122,7 +123,7 @@ class JscData:
             value = section_data.get(key)
         return value
 
-    def get_section(self, section_name=None) -> dict:
+    def get_section(self, section_name=None) -> Optional[dict]:
         """
         Get full section branches
 
@@ -185,7 +186,7 @@ class JscData:
                         self.__jsc[section_name] = {}
                     self.__jsc[section_name][key] = value
 
-    def str(self) -> str:
+    def str(self) -> Optional[str]:
         """
         Get JSC data structure as string
 
@@ -212,7 +213,7 @@ class JscData:
 
         return jsc_data_string
 
-    def str_html(self) -> str:
+    def str_html(self):
         """
         Get JSC data structure as string with new line as <br> for HTML format
 
