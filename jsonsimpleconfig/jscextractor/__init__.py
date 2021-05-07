@@ -19,10 +19,10 @@ from .json_extractor import JsonExtractor
 ###############################################################################
 
 __all__ = (
-    'JscExtractor',
-    'JscHeader',
-    'JscExtractor',
-    'JsonExtractor',
+    "JscExtractor",
+    "JscHeader",
+    "JscExtractor",
+    "JsonExtractor",
 )
 
 ###############################################################################

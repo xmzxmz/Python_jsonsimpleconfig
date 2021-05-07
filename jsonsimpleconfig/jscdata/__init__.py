@@ -10,6 +10,7 @@ __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 # Import(s)                                                                   #
 ###############################################################################
 
+from .flat_data import FlatData
 from .jsc_data import JscData
 from .jsc_section import JscSection
 
@@ -18,8 +19,9 @@ from .jsc_section import JscSection
 ###############################################################################
 
 __all__ = (
-    'JscSection',
-    'JscData',
+    "JscSection",
+    "JscData",
+    "FlatData",
 )
 
 ###############################################################################

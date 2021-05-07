@@ -4,10 +4,10 @@
 exec python3 $0 ${1+"$@"}
 """
 # * ********************************************************************* *
-# *   Copyright (C) 2018 by xmz                                           *
+# *   Copyright (C) 2021 by xmz                                           *
 # * ********************************************************************* *
 
-__doc__ = "Return JSON Simple Config value from config file"
+__doc__ = "Convert JSON to Flat CSV structure Simple Config file"
 __author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
 __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 
@@ -20,14 +20,14 @@ import logging
 import signal
 import sys
 
-from jsonsimpleconfig import Jsc
+from jsonsimpleconfig import Json2CsvHelper
 
 ###############################################################################
 # Module Variable(s)                                                          #
 ###############################################################################
 
 VERSION_STRING = "0.0.6"
-APPLICATION_NAME_STRING = "JSC value"
+APPLICATION_NAME_STRING = "JSON to CSV converter"
 
 
 ###############################################################################
@@ -42,11 +42,8 @@ def parameters():
     """
     parser = argparse.ArgumentParser(description=APPLICATION_NAME_STRING)
     parser.add_argument("-v", "--version", action="version", version=APPLICATION_NAME_STRING + " - " + VERSION_STRING)
-    parser.add_argument("-i", "--in", type=argparse.FileType("r"), help="Input file path (JSC file)", required=True)
-    parser.add_argument(
-        "-s", "--section", help="The name of the section, empty or not provided, we assume it is global", required=False
-    )
-    parser.add_argument("-k", "--key", help="The key name", required=True)
+    parser.add_argument("-i", "--in", type=argparse.FileType("r"), help="Input file path (JSON file)", required=True)
+    parser.add_argument("-o", "--out", type=argparse.FileType("w"), help="Output file path (CSV file)", required=False)
     logging_level_choices = {
         "CRITICAL": logging.CRITICAL,
         "ERROR": logging.ERROR,
@@ -72,12 +69,14 @@ def parameters():
         format="[%(asctime)s][%(levelname)-8s] [%(module)-20s] - %(message)s", datefmt="%Y.%m.%d %H:%M.%S", level=level
     )
 
-    return {
-        "loggingLevel": (vars(args)["loggingLevel"]),
-        "jsc_file": (vars(args)["in"]).name,
-        "section": (vars(args)["section"]),
-        "key": (vars(args)["key"]),
-    }
+    json_file = (vars(args)["in"]).name
+
+    if vars(args)["out"] is None:
+        csv_file = json_file + ".csv"
+    else:
+        csv_file = (vars(args)["out"]).name
+
+    return {"loggingLevel": (vars(args)["loggingLevel"]), "json_file": json_file, "csv_file": csv_file}
 
 
 def main(argv=sys.argv):
@@ -89,16 +88,13 @@ def main(argv=sys.argv):
     args = parameters()
 
     if "loggingLevel" in args and args["loggingLevel"] == "DEBUG":
-        value = Jsc.get_value(args["jsc_file"], args["section"], args["key"])
+        Json2CsvHelper.convert(args["json_file"], args["csv_file"])
     else:
         try:
-            value = Jsc.get_value(args["jsc_file"], args["section"], args["key"])
+            Json2CsvHelper.convert(args["json_file"], args["csv_file"])
         except Exception as exception:
-            value = None
+            print("Error!")
             logging.debug(exception)
-
-    if value is not None:
-        print(value)
 
 
 def handler(signum, frame):

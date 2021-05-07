@@ -1,0 +1,78 @@
+output-format: grouped
+strictness: veryhigh
+test-warnings: true
+doc-warnings: false
+member-warnings: false
+inherits:
+  - default
+ignore-paths:
+  - docs
+
+ignore-patterns:
+  - (^|/)skip(this)?(/|$)
+autodetect: true
+max-line-length: 119
+
+bandit:
+  run: true
+
+dodgy:
+  run: true
+
+frosted:
+  disable:
+
+mccabe:
+  run: true
+  options:
+    max-complexity: 10
+
+pep8:
+  enable:
+    - W601
+  options:
+    max-line-length: 120
+pep257:
+  run: true
+  disable:
+    - D100 # missing docstring in a public module
+    - D101 # missing docstring in a public class
+    - D102 # missing docstring in a public method
+    - D103 # missing docstring in a public function
+    - D104 # missing docstring in a public package
+    - D203 # 1 blank line required before class docstring
+    - D212 # Multi-line docstring summary should start at the second line
+    - D413 # Missing blank line after last section
+
+pyflakes:
+  run: true
+
+pylint:
+  run: true
+  disable:
+    - bad-builtin
+    - too-few-public-methods
+  options:
+    max-locals: 15
+    max-returns: 6
+    max-branches: 15
+    max-statements: 60
+    max-parents: 7
+    max-attributes: 7
+    min-public-methods: 1
+    max-public-methods: 20
+    max-module-lines: 1000
+    max-line-length: 119
+    max-args: 6
+
+pyroma:
+  run: true
+
+mypy:
+  run: true
+  options:
+    ignore-missing-imports: false
+    follow-imports: skip
+
+vulture:
+  run: true

@@ -22,8 +22,8 @@ from .parse_string_jsc_test import StringJscTestSuite
 ###############################################################################
 
 __all__ = (
-    'StringJscTestSuite',
-    'JscCommentsTestSuite',
+    "StringJscTestSuite",
+    "JscCommentsTestSuite",
 )
 
 ###############################################################################

@@ -18,6 +18,7 @@ import re
 # Class                                                                       #
 ###############################################################################
 
+
 class JscComments:
     """
     The class to allow strip out comments support by JSC files.
@@ -42,15 +43,12 @@ class JscComments:
 
         def replacer(match):
             start_group = match.group(0)
-            if start_group.startswith(';') or \
-                    start_group.startswith('#') or \
-                    start_group.startswith('/'):
+            if start_group.startswith(";") or start_group.startswith("#") or start_group.startswith("/"):
                 return " "
             return start_group
 
         pattern = re.compile(
-            r'#.*?$|;.*?$|//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"',
-            re.DOTALL | re.MULTILINE
+            r'#.*?$|;.*?$|//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"', re.DOTALL | re.MULTILINE
         )
 
         replaced = re.sub(pattern, replacer, text)
@@ -70,15 +68,10 @@ class JscComments:
             JSC output file path
 
         """
-        in_file = open(in_file_path)
-        if in_file:
-            if in_file.readable():
-                out_file = open(out_file_path, 'w', encoding='utf-8')
-                if out_file:
-                    if out_file.writable():
-                        out_file.write(JscComments.strip_comments(in_file.read()))
-                    out_file.close()
-            in_file.close()
+        with open(in_file_path, "r", encoding="UTF-8") as in_file:
+            with open(out_file_path, "w", encoding="UTF-8") as out_file:
+                out_file.write(JscComments.strip_comments(in_file.read()))
+
 
 ###############################################################################
 #                                End of file                                  #

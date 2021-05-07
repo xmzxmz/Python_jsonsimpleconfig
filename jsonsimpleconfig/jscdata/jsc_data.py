@@ -23,6 +23,7 @@ from .jsc_section import JscSection
 # Class                                                                       #
 ###############################################################################
 
+
 class JscData:
     """
     The JSC data container.
@@ -65,10 +66,10 @@ class JscData:
         section_data : dict
             Section data
         """
-        if section_name[0] == '[':
-            section_name = section_name.lstrip('[')
-        if section_name[-1] == ']':
-            section_name = section_name.rstrip(']')
+        if section_name[0] == "[":
+            section_name = section_name.lstrip("[")
+        if section_name[-1] == "]":
+            section_name = section_name.rstrip("]")
         for key, value in section_data.items():
             if section_name not in self.__jsc:
                 self.__jsc[section_name] = {}
@@ -137,14 +138,14 @@ class JscData:
         dict
             The section branch structure.
         """
-        if section_name is None or section_name == '':
+        if section_name is None or section_name == "":
             section_name = JscSection.GLOBAL_SECTION_NAME
         elif section_name != JscSection.GLOBAL_SECTION_NAME:
             section_name = section_name.strip()
             if section_name[0] != '"':
                 section_name = '"' + section_name
             if section_name[-1] != '"':
-                section_name = section_name + '"'
+                section_name += '"'
         if section_name in self.get_section_names():
             return self.__jsc[section_name]
         return None
@@ -186,7 +187,10 @@ class JscData:
                         self.__jsc[section_name] = {}
                     self.__jsc[section_name][key] = value
 
-    def str(self) -> Optional[str]:
+    def __str__(self) -> str:
+        return self.to_string()
+
+    def to_string(self) -> str:
         """
         Get JSC data structure as string
 
@@ -203,17 +207,17 @@ class JscData:
                 if section_name == JscSection.GLOBAL_SECTION_NAME:
                     section_print += " (Global):"
                 else:
-                    section_print += " - {}:".format(section_name)
+                    section_print += f" - {section_name}:"
                 jsc_data_string += section_print + os.linesep
                 section_data = self.get_section(section_name)
                 if isinstance(section_data, dict):
                     for key in section_data:
                         value = section_data.get(key)
-                        jsc_data_string += '*** [' + str(key) + '] : [' + str(value) + ']' + os.linesep
+                        jsc_data_string += "*** [" + str(key) + "] : [" + str(value) + "]" + os.linesep
 
         return jsc_data_string
 
-    def str_html(self):
+    def to_html(self) -> str:
         """
         Get JSC data structure as string with new line as <br> for HTML format
 
@@ -222,19 +226,19 @@ class JscData:
         string
             HTML format of JSC data.
         """
-        return self.str().replace(os.linesep, '<br>' + os.linesep)
+        return self.to_string().replace(os.linesep, "<br>" + os.linesep) if self.to_string() else ""
 
     def print(self):
         """
         Prints JSC string data
         """
-        print(self.str())
+        print(self.to_string())
 
     def print_html(self):
         """
         Prints JSC data as HTML format
         """
-        print(self.str_html())
+        print(self.to_html())
 
     def convert_from_json(self, json_data):
         """
@@ -265,6 +269,7 @@ class JscData:
         jsc_data = JscData()
         jsc_data.convert_from_json(json_data)
         return jsc_data
+
 
 ###############################################################################
 #                                End of file                                  #

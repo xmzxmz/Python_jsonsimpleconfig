@@ -21,9 +21,11 @@ from jsonsimpleconfig import JscParser, JscData
 # Class                                                                       #
 ###############################################################################
 
+
 class JscConfig:
     """JSC Config class."""
-    _jsc_configs = ['/etc/jsc/main.jsc']
+
+    _jsc_configs = ["/etc/jsc/main.jsc"]
     __instance = None
     __jsc_data = None
 
@@ -139,6 +141,7 @@ class JscConfig:
                 data = default
             return data
         return None
+
 
 ###############################################################################
 #                                End of file                                  #

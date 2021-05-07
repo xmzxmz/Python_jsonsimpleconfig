@@ -23,6 +23,7 @@ import jsonsimpleconfig
 # Class                                                                       #
 ###############################################################################
 
+
 class StringJscTestSuite(unittest.TestCase):
     """String base JSC test cases."""
 
@@ -35,12 +36,11 @@ class StringJscTestSuite(unittest.TestCase):
     def test_load_example_jsc(self):
         """Loads example JSC string."""
         self.assertIsNotNone(jsonsimpleconfig.loads(StringJscTestSuite.__example_jsc))
-        self.assertIsInstance(jsonsimpleconfig.loads(StringJscTestSuite.__example_jsc),
-                              jsonsimpleconfig.JscData)
+        self.assertIsInstance(jsonsimpleconfig.loads(StringJscTestSuite.__example_jsc), jsonsimpleconfig.JscData)
 
 
 # Execute main function
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
 
 ###############################################################################

@@ -23,13 +23,12 @@ import jsonsimpleconfig
 # Class                                                                       #
 ###############################################################################
 
+
 class JscDataTestSuite(unittest.TestCase):
     """JSC data operations test cases."""
 
     __example_one_jsc = '"variable_root":"value_root"'
-    __example_two_jsc = '"variable_root":"value_root_two"\n' \
-                        '[section_two]\n' \
-                        '"variable_section":"value_section"\n'
+    __example_two_jsc = '"variable_root":"value_root_two"\n[section_two]\n"variable_section":"value_section"\n'
     __example_one_json = '{"variable_root":"value_root_json"}'
 
     def test_jsc_data_operations(self):
@@ -61,7 +60,7 @@ class JscDataTestSuite(unittest.TestCase):
 
 
 # Execute main function
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
 
 ###############################################################################

@@ -17,6 +17,7 @@ import datetime
 # Class                                                                       #
 ###############################################################################
 
+
 class JscCommon:
     """
     The class for all misc tools.
@@ -49,18 +50,15 @@ class JscCommon:
             today_date = datetime.datetime.utcnow()
         else:
             today_date = datetime.datetime.now()
-        timestamp = (
-            str("%04d" % today_date.year) + "-"
-            "" + str("%02d" % today_date.month) + "-"
-            "" + str("%02d" % today_date.day))
+        timestamp = today_date.strftime("%Y-%m-%d")
         if time:
-            timestamp += (
-                " " + str("%02d" % today_date.hour) + ":" + str("%02d" % today_date.minute))
+            timestamp += today_date.strftime(" %H:%M")
             if seconds:
-                timestamp += ("." + str("%02d" % today_date.second))
+                timestamp += today_date.strftime(".%S")
                 if microseconds:
-                    timestamp += ("." + str("%06d" % today_date.microsecond))
+                    timestamp += today_date.strftime(".%f")
         return timestamp
+
 
 ###############################################################################
 #                                End of file                                  #

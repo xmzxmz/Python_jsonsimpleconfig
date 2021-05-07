@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # * ********************************************************************* *
-# *   Copyright (C) 2018 by xmz                                           *
+# *   Copyright (C) 2021 by xmz                                           *
 # * ********************************************************************* *
 
 __author__ = "Marcin Zelek (marcin.zelek@gmail.com)"
@@ -12,7 +12,9 @@ __copyright__ = "Copyright (C) xmz. All Rights Reserved."
 
 import logging
 
-from jsonsimpleconfig import Json, JscData, JscExtractor
+import pandas
+
+from jsonsimpleconfig import Json, FlatData
 
 
 ###############################################################################
@@ -20,22 +22,22 @@ from jsonsimpleconfig import Json, JscData, JscExtractor
 ###############################################################################
 
 
-class Json2JscHelper:
+class Json2CsvHelper:
     @staticmethod
-    def convert(json_file, jsc_file):
+    def convert(json_file, csv_file):
 
         json_parser = Json(json_file)
         json_data = json_parser.parse()
 
         if json_data["data"] is not None:
             if isinstance(json_data["data"], dict):
-                logging.info("JSON file is correct. Generating JSC ...")
-                logging.info("JSC location: %s", jsc_file)
-                jsc_data = JscData.from_json(json_data["data"])
-                jsc_extractor = JscExtractor(jsc_data)
-                jsc_extractor.extract_to_file(jsc_file)
+                logging.info("JSON file is correct. Generating CSV ...")
+                logging.info("CSV location: %s", csv_file)
+                flat_data = FlatData.from_json(json_data["data"])
+                pandas_data = pandas.json_normalize(flat_data.data)
+                pandas_data.to_csv(csv_file, sep=";", index=False, encoding="utf-8")
             else:
-                logging.error("JSON data without root name cannot be converted into JSC.")
+                logging.error("JSON data without root name cannot be converted into CSV.")
 
         else:
             logging.error("Incorrect JSON or file is empty.")

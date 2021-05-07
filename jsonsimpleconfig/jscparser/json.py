@@ -21,6 +21,7 @@ from jsonsimpleconfig import JscData
 # Class                                                                       #
 ###############################################################################
 
+
 class Json:
     """
     Json
@@ -36,21 +37,20 @@ class Json:
         """
 
         try:
-            json_data = open(self.__file)
-            data = json.load(json_data)
-            status = None
-            json_data.close()
+            with open(self.__file, encoding="UTF-8") as json_data:
+                data = json.load(json_data)
+                status = None
 
         except json.JSONDecodeError as exception:
             data = None
-            status = exception.msg
+            status = str(exception.msg)
 
         except Exception as exception:
             data = None
-            status = sys.exc_info()
+            status = str(sys.exc_info())
             logging.debug(exception)
 
-        return {'data': data, 'status': status}
+        return {"data": data, "status": status}
 
     @staticmethod
     def parse_file_json(json_file_path) -> JscData:
@@ -60,7 +60,7 @@ class Json:
         :return: JSC Data
         """
         try:
-            with open(json_file_path) as json_file:
+            with open(json_file_path, encoding="UTF-8") as json_file:
                 json_data = json.load(json_file)
                 jsc_data = JscData.from_json(json_data)
         except Exception as exception:
@@ -84,6 +84,7 @@ class Json:
             logging.debug(exception)
 
         return jsc_data
+
 
 ###############################################################################
 #                                End of file                                  #

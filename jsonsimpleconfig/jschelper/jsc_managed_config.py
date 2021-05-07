@@ -21,14 +21,14 @@ from jsonsimpleconfig import JscParser, JscData
 # Class                                                                       #
 ###############################################################################
 
+
 class JscConfigManaged:
     """JSC Config Managed class."""
+
     _jsc_config_file = None
     __jsc_data = None
 
-    def __init__(self,
-                 jsc_config_file,
-                 base_jsc_data=None):
+    def __init__(self, jsc_config_file, base_jsc_data=None):
         self._jsc_config_file = jsc_config_file
         if base_jsc_data:
             self.__jsc_data = base_jsc_data
@@ -48,6 +48,7 @@ class JscConfigManaged:
                 self.__jsc_data.merge(jsc_data)
             else:
                 self.__jsc_data = jsc_data
+
 
 ###############################################################################
 #                                End of file                                  #
